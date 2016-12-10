@@ -2,6 +2,8 @@ package nyc.c4q.jordansmith.midtermpractical;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 
 import java.util.ArrayList;
@@ -21,12 +23,14 @@ public class MainActivity extends AppCompatActivity {
 
     private String baseURl = "https://vine.co/";
     List<Record> recordList;
+    RecyclerView recyclerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         recordList = new ArrayList<Record>();
+        recyclerView = (RecyclerView) findViewById(R.id.recyclerview_main);
 
         downloadVineData();
     }
@@ -50,6 +54,9 @@ public class MainActivity extends AppCompatActivity {
                 recordList = response.body().getData().getRecords();
                 int whatever = recordList.size();
                 Log.d("Record list size", Integer.toString(whatever));
+                recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+                recyclerView.setAdapter(new VineAdapter(recordList));
+
             }
 
             @Override
