@@ -1,5 +1,6 @@
 package nyc.c4q.jordansmith.midtermpractical;
 
+import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -38,9 +39,25 @@ public class VineAdapter extends RecyclerView.Adapter<VineAdapter.VineViewHolder
         if(recordList.get(position).getRepost() == null){
             userName = "no available username";
         }
-        else{ userName = recordList.get(position).getRepost().getUser().getUsername();}
+        else{ userName = "Username " + recordList.get(position).getRepost().getUser().getUsername();}
 
-        holder.UserNameTextView.setText(userName);
+        holder.userNameTextView.setText(userName);
+        int liked = recordList.get(position).getLiked();
+        String likedString ="Liked: " + Integer.toString(liked);
+        holder.likedTextView.setText(likedString);
+        if(recordList.get(position).getProfileBackground() != null){
+            String color = recordList.get(position).getProfileBackground();
+            String newColor = "";
+            for(int i = 2; i < color.length(); i++){
+                newColor = newColor + color.charAt(i);
+            }
+            newColor = "#" + newColor;
+            String finalColor = newColor;
+
+            holder.itemView.setBackgroundColor(Color.parseColor(finalColor));
+        }
+
+
 
     }
 
@@ -50,12 +67,17 @@ public class VineAdapter extends RecyclerView.Adapter<VineAdapter.VineViewHolder
     }
 
     public class VineViewHolder extends RecyclerView.ViewHolder {
-        TextView UserNameTextView;
+        TextView userNameTextView;
+        TextView likedTextView;
+
 
 
         public VineViewHolder(View itemView) {
             super(itemView);
-            UserNameTextView = (TextView) itemView.findViewById(R.id.username_textview);
+            userNameTextView = (TextView) itemView.findViewById(R.id.username_textview);
+            likedTextView = (TextView) itemView.findViewById(R.id.liked_Textview);
         }
+
+
     }
 }
