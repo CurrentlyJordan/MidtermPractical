@@ -54,7 +54,7 @@ public class VineAdapter extends RecyclerView.Adapter<VineAdapter.VineViewHolder
             newColor = "#" + newColor;
             String finalColor = newColor;
 
-            holder.itemView.setBackgroundColor(Color.parseColor(finalColor));
+            holder.itemView.setBackgroundColor(Color.parseColor("" + finalColor));
         }
 
 
